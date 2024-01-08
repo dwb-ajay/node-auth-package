@@ -23,12 +23,9 @@ const authenticate = (secret) => (req, res, next) => {
 };
 
 const generateAccessToken = (secret, payload) => {
-  try {
     const token = jwt.sign(payload, secret, { expiresIn: '15d' });
-    res.accessToken = token; 
-  } catch (error) {
-    return res.status(401).json({ message: 'Unsupported payload!' });
-  }
+    if(!token) return null;
+    return token;
 };
 
 module.exports = { authenticate, generateAccessToken, setJwtSecret };
