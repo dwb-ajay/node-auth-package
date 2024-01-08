@@ -22,13 +22,12 @@ const authenticate = (secret) => (req, res, next) => {
   }
 };
 
-const generateAccessToken = (secret, payload) => (req, res, next) => {
+const generateAccessToken = (secret, payload) => {
   try {
     const token = jwt.sign(payload, secret, { expiresIn: '15d' });
     res.accessToken = token; 
-    next();
   } catch (error) {
-    return res.status(401).json({ message: 'Unsupported payload' });
+    return res.status(401).json({ message: 'Unsupported payload!' });
   }
 };
 
