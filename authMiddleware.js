@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
 
+const setJwtSecret = (secret) => {
+  jwt.secret = secret;
+};
+
 const authenticate = (secret) => (req, res, next) => {
   const authHeader = req.header('Authorization');
 
@@ -18,8 +22,14 @@ const authenticate = (secret) => (req, res, next) => {
   }
 };
 
-const setJwtSecret = (secret) => {
-  jwt.secret = secret;
+const genereateAccessToken = (secret, payload) => (req, res, next) => {
+  try {
+    const token = jwt.sign(payload, secret, { expiresIn: '15d' });
+    res.accessToken = token; 
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Unsupported payload' });
+  }
 };
 
-module.exports = { authenticate, setJwtSecret };
+module.exports = { authenticate, genereateAccessToken, setJwtSecret };
