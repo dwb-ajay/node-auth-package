@@ -1,3 +1,3 @@
-const { authenticate, setJwtSecret, genereateAccessToken } = require('./authMiddleware');
+const { authenticate, setJwtSecret, generateAccessToken } = require('./authMiddleware');
 
-module.exports = { authenticate, genereateAccessToken, setJwtSecret };
+module.exports = { authenticate, generateAccessToken, setJwtSecret };

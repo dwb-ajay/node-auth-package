@@ -22,7 +22,7 @@ const authenticate = (secret) => (req, res, next) => {
   }
 };
 
-const genereateAccessToken = (secret, payload) => (req, res, next) => {
+const generateAccessToken = (secret, payload) => (req, res, next) => {
   try {
     const token = jwt.sign(payload, secret, { expiresIn: '15d' });
     res.accessToken = token; 
@@ -32,4 +32,4 @@ const genereateAccessToken = (secret, payload) => (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, genereateAccessToken, setJwtSecret };
+module.exports = { authenticate, generateAccessToken, setJwtSecret };
