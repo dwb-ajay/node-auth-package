@@ -17,6 +17,9 @@ class JwtService {
 
       try {
         const { userId, gender } = jwt.verify(token, this.secret);
+        if(gender!== "male" && gender!== "female") {
+          return res.status(401).json({ message: 'Something went wrong, gender missing!' });
+        }
         req.userId = userId;
         req.gender = gender;
         next();
