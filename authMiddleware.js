@@ -16,8 +16,12 @@ class JwtService {
       const token = authHeader.substring(7);
 
       try {
-        const { userId } = jwt.verify(token, this.secret);
+        const { userId, gender } = jwt.verify(token, this.secret);
+        if(gender!== "male" && gender!== "female") {
+          return res.status(401).json({ message: 'Something went wrong, gender missing!' });
+        }
         req.userId = userId;
+        req.gender = gender;
         next();
       } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });
