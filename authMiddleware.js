@@ -25,12 +25,12 @@ class JwtService {
     };
   }
 
-  generateAccessToken(payload) {
+  generateAccessToken(payload, expiresIn = '15d') {
     if (!this.secret) {
       throw new Error('JWT secret not set. Provide a secret in the constructor or call setSecret() before generating tokens.');
     }
 
-    const token = jwt.sign(payload, this.secret, { expiresIn: '15d' });
+    const token = jwt.sign(payload, this.secret, { expiresIn: expiresIn });
     if (!token) return null;
     return token;
   }
